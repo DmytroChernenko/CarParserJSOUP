@@ -2,6 +2,7 @@ package com.chernenko.carparser;
 
 
 import com.chernenko.carparser.dao.CarFinder;
+import com.chernenko.carparser.dao.HtmlCarDao;
 import com.chernenko.carparser.dao.SiteGetter;
 import com.chernenko.carparser.entity.Car;
 import org.jsoup.nodes.Document;
@@ -49,9 +50,11 @@ public class Main {
 
 
         System.out.println("Cars:");
+        HtmlCarDao carDao = new HtmlCarDao();
+
 
         for (Car car : cars.values()) {
-            System.out.println(car);
+            carDao.saveCarToXml(car);
         }
 
 
