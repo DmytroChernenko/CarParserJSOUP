@@ -2,10 +2,9 @@ package com.chernenko.carparser.dao;
 
 import com.chernenko.carparser.entity.Car;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +23,7 @@ public class CarXMLAdapter implements Serializable{
 
     // need to fix this;
     private List<String> linksOfPhotos;
+    private String price;
 
 
     public CarXMLAdapter() {
@@ -36,16 +36,21 @@ public class CarXMLAdapter implements Serializable{
         this.description = car.getDescription();
         this.pathToPhotoDir = car.getPathToPhotoDir();
         this.linksOfPhotos = car.getLinksOfPhotos();
+        this.price = car.getPrice();
     }
 
     public Car getCar() {
+
+        ArrayList<String> photos = new ArrayList<String>();
+
+
         Car car = new Car();
         car.setUrl(url);
         car.setTitle(title);
         car.setShortDescription(shortDescription);
         car.setDescription(description);
         car.setPathToPhotoDir(pathToPhotoDir);
-
+        car.setPrice(price);
         return car;
     }
 
@@ -95,6 +100,14 @@ public class CarXMLAdapter implements Serializable{
 
     public void setLinksOfPhotos(List<String> linksOfPhotos) {
         this.linksOfPhotos = linksOfPhotos;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     @Override

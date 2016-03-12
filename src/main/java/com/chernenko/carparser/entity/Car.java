@@ -15,6 +15,8 @@ public class Car {
     private String pathToPhotoDir;
     private List<String> linksOfPhotos;
 
+    private String price;
+
     public String getPathToPhotoDir() {
         return pathToPhotoDir;
     }
@@ -30,8 +32,6 @@ public class Car {
     public void setLinksOfPhotos(List<String> linksOfPhotos) {
         this.linksOfPhotos = linksOfPhotos;
     }
-
-    private String price;
 
     public String getUrl() {
         return url;
@@ -80,7 +80,9 @@ public class Car {
         sb.append(", title='").append(title).append('\'');
         sb.append(", shortDescription='").append(shortDescription).append('\'');
         sb.append(", description='").append(description).append('\'');
-        sb.append(", price=").append(price);
+        sb.append(", pathToPhotoDir='").append(pathToPhotoDir).append('\'');
+        sb.append(", linksOfPhotos=").append(linksOfPhotos);
+        sb.append(", price='").append(price).append('\'');
         sb.append('}');
         return sb.toString();
     }

@@ -72,6 +72,11 @@ public class Main {
 
         carDao.saveCarToXml(simpleCar);
 
+        System.out.println("First car");
+        System.out.println(simpleCar);
+
+        System.out.println("second car");
+        System.out.println(carDao.readOneCarFromXml("src/main/resources/My-simple-Car.xml"));
 
     }
 }
