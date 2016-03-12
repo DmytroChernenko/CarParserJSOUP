@@ -40,6 +40,11 @@ public class CarFinder {
                 Element priceElement = link.getElementsByClass("ad-price").first();
                 car.setPrice(priceElement.ownText());
 
+                String carFullLink = "http://www.autogidas.lt/" + car.getUrl();
+                SiteGetter siteGetter = new SiteGetter(carFullLink);
+                CarDetailFinder carDetailFinder = new CarDetailFinder(siteGetter.getSite());
+
+
                 mapCars.put(url, car);
             }
         } catch (Exception e) {

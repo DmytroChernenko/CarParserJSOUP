@@ -5,12 +5,13 @@ import com.chernenko.carparser.entity.Car;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 
 /**
  * Created by Dmytro on 12.03.16.
  */
-public class HtmlCarDao {
+public class CarDao {
 
     public void saveCarToXml(Car car) {
         JAXBContext context = null;
@@ -29,8 +30,23 @@ public class HtmlCarDao {
         }
     }
 
-    public Car getCar(String fileName) {
-        return null;
+    public Car readOneCarFromXml(String filename) {
+        Car result = null;
+
+        try {
+
+            File file = new File(filename);
+            JAXBContext jaxbContext = JAXBContext.newInstance(CarXMLAdapter.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            CarXMLAdapter adapter = (CarXMLAdapter) jaxbUnmarshaller.unmarshal(file);
+            result = adapter.getCar();
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }

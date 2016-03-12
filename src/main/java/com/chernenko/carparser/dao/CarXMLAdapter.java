@@ -2,6 +2,7 @@ package com.chernenko.carparser.dao;
 
 import com.chernenko.carparser.entity.Car;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
@@ -20,6 +21,8 @@ public class CarXMLAdapter implements Serializable{
     private String description;
 
     private String pathToPhotoDir;
+
+    // need to fix this;
     private List<String> linksOfPhotos;
 
 
@@ -33,6 +36,17 @@ public class CarXMLAdapter implements Serializable{
         this.description = car.getDescription();
         this.pathToPhotoDir = car.getPathToPhotoDir();
         this.linksOfPhotos = car.getLinksOfPhotos();
+    }
+
+    public Car getCar() {
+        Car car = new Car();
+        car.setUrl(url);
+        car.setTitle(title);
+        car.setShortDescription(shortDescription);
+        car.setDescription(description);
+        car.setPathToPhotoDir(pathToPhotoDir);
+
+        return car;
     }
 
     public String getUrl() {

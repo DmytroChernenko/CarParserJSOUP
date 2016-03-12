@@ -2,12 +2,13 @@ package com.chernenko.carparser;
 
 
 import com.chernenko.carparser.dao.CarFinder;
-import com.chernenko.carparser.dao.HtmlCarDao;
+import com.chernenko.carparser.dao.CarDao;
 import com.chernenko.carparser.dao.SiteGetter;
 import com.chernenko.carparser.entity.Car;
 import org.jsoup.nodes.Document;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Main {
@@ -50,12 +51,26 @@ public class Main {
 
 
         System.out.println("Cars:");
-        HtmlCarDao carDao = new HtmlCarDao();
+        CarDao carDao = new CarDao();
 
-
+        Car simpleCar = null;
         for (Car car : cars.values()) {
             carDao.saveCarToXml(car);
+            simpleCar = car;
         }
+
+        simpleCar.setPathToPhotoDir("bla bla bla");
+
+        ArrayList<String> links = new ArrayList<String>();
+        links.add("1");
+        links.add("2");
+        links.add("3");
+        links.add("4");
+        simpleCar.setLinksOfPhotos(links);
+
+        simpleCar.setTitle("My-simple-Car");
+
+        carDao.saveCarToXml(simpleCar);
 
 
     }
