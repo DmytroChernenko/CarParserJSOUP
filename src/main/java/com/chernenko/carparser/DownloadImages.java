@@ -24,7 +24,7 @@ public class DownloadImages {
     //The url of the website. This is just an example
 
     //The path of the folder that you want to save the images to
-    private static final String mainFolderPath = "src/main/resources/data/";
+    private static final String mainFolderPath = "src/main/resources/cars/";
 
 
     public static void getImage(Car car) throws IOException {
@@ -61,6 +61,7 @@ public class DownloadImages {
         out.close();
         in.close();
 
+        car.setMainPhoto("/cars/" + fileName);
 
 
     }
