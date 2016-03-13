@@ -55,16 +55,12 @@ public class MainParser {
 
         System.out.println(allCars.size());
 
-        for (Car car : allCars) {
-
-        }
-
 
         int i = 0;
         try {
             for (Car car : allCars) {
                 DownloadImages.getImage(car);
-                //saveToDatabase(car);
+                saveToDatabase(car);
                 System.out.println(++i);
             }
         }catch (Exception e) {
