@@ -59,24 +59,7 @@ public class Main {
             simpleCar = car;
         }
 
-        simpleCar.setPathToPhotoDir("bla bla bla");
 
-        ArrayList<String> links = new ArrayList<String>();
-        links.add("1");
-        links.add("2");
-        links.add("3");
-        links.add("4");
-        simpleCar.setLinksOfPhotos(links);
-
-        simpleCar.setTitle("My-simple-Car");
-
-        carDao.saveCarToXml(simpleCar);
-
-        System.out.println("First car");
-        System.out.println(simpleCar);
-
-        System.out.println("second car");
-        System.out.println(carDao.readOneCarFromXml("src/main/resources/My-simple-Car.xml"));
 
     }
 }
