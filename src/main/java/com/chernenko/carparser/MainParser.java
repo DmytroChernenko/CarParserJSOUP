@@ -6,10 +6,11 @@ import com.chernenko.carparser.dao.CarDao;
 import com.chernenko.carparser.dao.SiteGetter;
 import com.chernenko.carparser.entity.Car;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 public class MainParser {
 
@@ -30,37 +31,51 @@ public class MainParser {
         // write your code here
 
         if (url.equals(""))
-            url = "http://ru.autogidas.lt/automobiliai/?f_1=&f_model_14=&f_215=1000&f_216=10000&f_41=&f_42=&f_3=&f_2=&f_376=";
-
-        SiteGetter siteGetter = new SiteGetter(url);
-        Document site = siteGetter.getSite();
+            url = "http://ru.autogidas.lt/automobiliai/1-psl/?f_1=Audi&f_215=1000&f_50=kaina_asc";
 
 
-        CarFinder carFinder = new CarFinder(site);
-        Map<String, Car> cars = carFinder.getMapCars();
 
-        //FileOutputStream fileResult = new FileOutputStream();       // файл куда пишем данные
+        Document site = SiteGetter.getSite(url);
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter("1.txt"));  // файл куда пишем данные
+        int numberOfPages;
+        Element number = site.getElementsByAttributeValue("class", "page").last();
+        numberOfPages = Integer.parseInt(number.html());
+
+        List<Car> allCars = new ArrayList<Car>();
 
 
-        System.out.println("Список ссылок");
-        for (String s : cars.keySet()) {
-            System.out.println(s);
+        for (int i = 1; i <3; i++) {
+            url = "http://ru.autogidas.lt/automobiliai/" + i  + "-psl/?f_1=Audi&f_215=1000&f_50=kaina_asc";
+            site = SiteGetter.getSite(url);
+            CarFinder carFinder = new CarFinder(site);
+            List<Car> cars = carFinder.getCars();
+            allCars.addAll(cars);
         }
 
 
-        System.out.println("Cars:");
-        CarDao carDao = new CarDao();
+        System.out.println(allCars.size());
 
-
-        try {
-            for (Car car : cars.values()) {
-                DownloadImages.getImage(car.getMainPhoto());
-            }
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
+        for (Car car : allCars) {
+            saveToDatabase();
         }
+
+
+
+//        int i = 0;
+//        try {
+//            for (Car car : allCars) {
+//                DownloadImages.getImage(car);
+//                System.out.println(i++);
+//            }
+//        }catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+
+    }
+
+    private static void saveToDatabase() {
+
+
 
     }
 

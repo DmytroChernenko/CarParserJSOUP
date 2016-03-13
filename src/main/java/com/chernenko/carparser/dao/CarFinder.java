@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class CarFinder {
     private Document site;
-    Map<String, Car> mapCars;
+    List<Car> cars;
 
     public CarFinder(Document site) {
         this.site = site;
@@ -20,14 +20,14 @@ public class CarFinder {
     }
 
     private void find(Document site) {
-        mapCars = new HashMap();
+        cars = new ArrayList<Car>();
 
         try {
             Elements linksElements = site.getElementsByClass("item-link");
 
             for (Element link : linksElements) {
 
-                Car car =new Car();
+                Car car = new Car();
                 String url = link.attr("href");
                 car.setUrl(url);
 
@@ -41,24 +41,26 @@ public class CarFinder {
                 car.setPrice(priceElement.ownText());
 
                 String carFullLink = "http://www.autogidas.lt/" + car.getUrl();
-                SiteGetter siteGetter = new SiteGetter(carFullLink);
-                Document fullCarInfoDoc = siteGetter.getSite();
+                Document fullCarInfoDoc = SiteGetter.getSite(carFullLink);
 
                 Element fullDescriptionDiv = fullCarInfoDoc.getElementsByAttributeValue("class", "params-block").get(1);
                 car.setDescription(fullDescriptionDiv.html());
 
-                Element mainPhoto = fullCarInfoDoc.getElementById("big-photo").getElementsByAttribute("src").first();
+                //Element mainPhoto = fullCarInfoDoc.getElementById("big-photo").getElementsByAttribute("src").first();
+                Element mainPhoto = fullCarInfoDoc.getElementsByAttributeValue("class", "big-photo")
+                        .first().getElementsByAttribute("src").first();
+                if(mainPhoto == null)
+                    continue;
                 car.setMainPhoto(mainPhoto.absUrl("src"));
+
 
                 ArrayList<String> photos = new ArrayList<String>();
                 Elements photosEl = fullCarInfoDoc.getElementsByAttributeValue("class", "photo");
                 for (Element element : photosEl) {
                     photos.add(element.absUrl("data-src"));
-                    System.out.println(element.absUrl("data-src"));
                 }
                 car.setLinksOfPhotos(photos);
-
-                mapCars.put(url, car);
+                cars.add(car);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -67,7 +69,7 @@ public class CarFinder {
 
     }
 
-    public Map<String, Car> getMapCars() {
-        return mapCars;
+    public List<Car> getCars() {
+        return cars;
     }
 }

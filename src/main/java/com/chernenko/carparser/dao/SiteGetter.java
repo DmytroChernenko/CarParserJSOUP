@@ -17,7 +17,7 @@ public class SiteGetter {
         this.url = url;
     }
 
-    public Document getSite(){
+    public static Document getSite(String url){
         Document doc;
 
         try{

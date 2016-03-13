@@ -7,12 +7,15 @@ import java.util.logging.Logger;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.chernenko.carparser.entity.Car;
 import org.jsoup.Jsoup;
 
 import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -24,8 +27,10 @@ public class DownloadImages {
     private static final String mainFolderPath = "src/main/resources/data/";
 
 
-    public static void getImage(String imageSrc) throws IOException {
+    public static void getImage(Car car) throws IOException {
 
+
+        String imageSrc = car.getMainPhoto();
         //Exctract the name of the image from the src attribute
         int indexname = imageSrc.lastIndexOf("/");
 
@@ -34,7 +39,8 @@ public class DownloadImages {
         }
 
         indexname = imageSrc.lastIndexOf("/");
-        String name = imageSrc.substring(indexname, imageSrc.length());
+        //TODO change name;
+        String name = car.getUrl() + ".jpg";
 
         System.out.println(name);
 
@@ -42,13 +48,15 @@ public class DownloadImages {
         URL url = new URL(imageSrc);
         InputStream in = url.openStream();
 
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(mainFolderPath+ name));
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(mainFolderPath + name));
 
-        for (int b; (b = in.read()) != -1;) {
+        for (int b; (b = in.read()) != -1; ) {
             out.write(b);
         }
         out.close();
         in.close();
+
+        System.out.println("success");
 
     }
 }
