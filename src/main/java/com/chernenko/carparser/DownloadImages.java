@@ -39,16 +39,20 @@ public class DownloadImages {
         }
 
         indexname = imageSrc.lastIndexOf("/");
-        //TODO change name;
-        String name = car.getUrl() + ".jpg";
 
-        System.out.println(name);
+        String newUrl = car.getUrl().substring(0, car.getUrl().indexOf('.'));
+        car.setUrl(newUrl);
+
+        String fileName = car.getUrl() + ".jpg";
+
+        System.out.println("name " + fileName);
+        System.out.println("carUrl = " + car.getUrl());
 
         //Open a URL Stream
         URL url = new URL(imageSrc);
         InputStream in = url.openStream();
 
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(mainFolderPath + name));
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(mainFolderPath + fileName));
 
         for (int b; (b = in.read()) != -1; ) {
             out.write(b);
@@ -56,7 +60,10 @@ public class DownloadImages {
         out.close();
         in.close();
 
-        System.out.println("success");
+        //System.out.println("success");
+        car.setMainPhoto("data" + fileName);
+        System.out.println("car.photho = " + car.getMainPhoto());
+
 
     }
 }

@@ -38,12 +38,12 @@ public class PlainCarDao {
 
 
 
-    public void insert() {
+    public void insert(Car car) {
         Connection connection = null;
         try {
 
             String sqlToProduct = "INSERT INTO oc_product SET " +
-                    "model = '**Модель крутой машины**', " +
+                    "model = '" + car.getTitle() +"', " +
                     "quantity = '16'," +
                     "minimum = '1', " +
                     "subtract = '1', " +
@@ -51,13 +51,13 @@ public class PlainCarDao {
                     "date_available = '2016-03-12', " +
                     "manufacturer_id = '0', " +
                     "shipping = '1', " +
-                    "price = '6666', " +
+                    "price = '" + car.getPrice() + "', " +
                     "weight_class_id = '2', " +
                     "length_class_id = '2', " +
                     "status = '1', " +
                     "tax_class_id = '0', " +
                     "sort_order = '1', " +
-                    "image = 'data/purse.jpg'," +
+                    "image = '" + car.getMainPhoto() +"'," +
                     "sku = '', " +
                     "upc = '', " +
                     "ean = '', " +
@@ -84,11 +84,11 @@ public class PlainCarDao {
             String sqlToDescription = "INSERT INTO oc_product_description SET " +
                     "product_id = '" + product_id + "', " +
                     "language_id = '1', " +
-                    "name = '*Пиздата masdasd машина*', " +
+                    "name = '" + car.getTitle() + "', " +
                     "meta_keyword = '', " +
                     "meta_description = '', " +
-                    "description = '**Основное описание**', " +
-                    "description_mini = '**Краткое описание отображается в категории**', " +
+                    "description = '" + car.getDescription() + "', " +
+                    "description_mini = '" + car.getShortDescription() + "', " +
                     "tag = '', " +
                     "seo_title = '', " +
                     "seo_h1 = ''";
@@ -97,7 +97,9 @@ public class PlainCarDao {
             statement = connection.prepareStatement(sqlToDescription);
             statement.execute();
 
-            String sqlToAlias = "INSERT INTO oc_url_alias SET query = 'product_id=182', keyword = '-pizdata-mashina-'";
+            String sqlToAlias = "INSERT INTO oc_url_alias SET query = " +
+                    "'product_id = " + product_id + "', " +
+                    "keyword = '" + car.getUrl() + "'";
 
             statement = connection.prepareStatement(sqlToAlias);
             statement.execute();
