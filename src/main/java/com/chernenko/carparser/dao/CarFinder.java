@@ -42,8 +42,20 @@ public class CarFinder {
 
                 String carFullLink = "http://www.autogidas.lt/" + car.getUrl();
                 SiteGetter siteGetter = new SiteGetter(carFullLink);
-                CarDetailFinder carDetailFinder = new CarDetailFinder(siteGetter.getSite());
+                Document fullCarInfoDoc = siteGetter.getSite();
 
+                Element fullDescriptionDiv = fullCarInfoDoc.getElementsByAttributeValue("class", "params-block").get(1);
+                car.setDescription(fullDescriptionDiv.html());
+
+                Element mainPhoto = fullCarInfoDoc.getElementById("big-photo").getElementsByAttribute("src").first();
+                car.setMainPhoto(mainPhoto.absUrl("src"));
+
+                ArrayList<String> photos = new ArrayList<String>();
+                Elements photosEl = fullCarInfoDoc.getElementsByAttributeValue("class", "photo");
+                for (Element element : photosEl) {
+                    photos.add(element.absUrl("data-src"));
+                }
+                car.setLinksOfPhotos(photos);
 
                 mapCars.put(url, car);
             }

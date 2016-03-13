@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Main {
+public class MainParser {
 
     static String url;
 
@@ -55,8 +55,6 @@ public class Main {
 
         Car simpleCar = null;
         for (Car car : cars.values()) {
-            carDao.saveCarToXml(car);
-            simpleCar = car;
         }
 
 
