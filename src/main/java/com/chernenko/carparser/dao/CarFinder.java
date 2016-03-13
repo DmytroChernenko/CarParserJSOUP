@@ -54,6 +54,7 @@ public class CarFinder {
                 Elements photosEl = fullCarInfoDoc.getElementsByAttributeValue("class", "photo");
                 for (Element element : photosEl) {
                     photos.add(element.absUrl("data-src"));
+                    System.out.println(element.absUrl("data-src"));
                 }
                 car.setLinksOfPhotos(photos);
 

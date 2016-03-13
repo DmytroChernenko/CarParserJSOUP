@@ -53,11 +53,16 @@ public class MainParser {
         System.out.println("Cars:");
         CarDao carDao = new CarDao();
 
-        Car simpleCar = null;
-        for (Car car : cars.values()) {
+
+        try {
+            for (Car car : cars.values()) {
+                DownloadImages.getImage(car.getMainPhoto());
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
-
-
     }
+
+
 }
