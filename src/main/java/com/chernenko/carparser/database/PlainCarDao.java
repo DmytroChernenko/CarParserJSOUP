@@ -36,14 +36,12 @@ public class PlainCarDao {
     }
 
 
-
-
     public void insert(Car car) {
         Connection connection = null;
         try {
 
             String sqlToProduct = "INSERT INTO oc_product SET " +
-                    "model = '" + car.getTitle() +"', " +
+                    "model = '" + car.getTitle() + "', " +
                     "quantity = '16'," +
                     "minimum = '1', " +
                     "subtract = '1', " +
@@ -57,7 +55,7 @@ public class PlainCarDao {
                     "status = '1', " +
                     "tax_class_id = '0', " +
                     "sort_order = '1', " +
-                    "image = '" + car.getMainPhoto() +"'," +
+                    "image = '" + car.getMainPhoto() + "'," +
                     "sku = '', " +
                     "upc = '', " +
                     "ean = '', " +
@@ -67,9 +65,9 @@ public class PlainCarDao {
                     "location = '', " +
                     "date_added = NOW()";
 
+            System.out.println(sqlToProduct);
+
             String sqlGetProductId = "select product_id from oc_product order by 1 DESC limit 0,1";
-
-
 
 
             connection = getConnection();
@@ -104,7 +102,8 @@ public class PlainCarDao {
             statement = connection.prepareStatement(sqlToAlias);
             statement.execute();
 
-            String sqlToGroup = "INSERT INTO oc_product_to_category SET product_id = '182', category_id = '66', main_category = 1";
+            String sqlToGroup = "INSERT INTO oc_product_to_category SET product_id = '" +
+                    product_id + "', category_id = '74', main_category = 1";
 
             statement = connection.prepareStatement(sqlToGroup);
             statement.execute();

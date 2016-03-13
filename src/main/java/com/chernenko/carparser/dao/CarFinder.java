@@ -39,6 +39,8 @@ public class CarFinder {
 
                 Element priceElement = link.getElementsByClass("ad-price").first();
                 String price = priceElement.ownText().substring(0, priceElement.ownText().length() - 1);
+                price = price.replaceAll(" ", "");
+                System.out.println("price = " + price);
                 car.setPrice(price);
 
                 String carFullLink = "http://www.autogidas.lt/" + car.getUrl();

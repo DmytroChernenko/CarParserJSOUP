@@ -41,6 +41,7 @@ public class DownloadImages {
         indexname = imageSrc.lastIndexOf("/");
 
         String newUrl = car.getUrl().substring(0, car.getUrl().indexOf('.'));
+        newUrl = newUrl.substring(1);
         car.setUrl(newUrl);
 
         String fileName = car.getUrl() + ".jpg";
@@ -60,9 +61,6 @@ public class DownloadImages {
         out.close();
         in.close();
 
-        //System.out.println("success");
-        car.setMainPhoto("data" + fileName);
-        System.out.println("car.photho = " + car.getMainPhoto());
 
 
     }
