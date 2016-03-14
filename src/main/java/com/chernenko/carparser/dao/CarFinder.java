@@ -40,8 +40,8 @@ public class CarFinder {
                 Element priceElement = link.getElementsByClass("ad-price").first();
                 String price = priceElement.ownText().substring(0, priceElement.ownText().length() - 1);
                 price = price.replaceAll(" ", "");
-                System.out.println("price = " + price);
-                car.setPrice(price);
+                Integer p = Integer.parseInt(price) + 1000;
+                car.setPrice(p.toString());
 
                 String carFullLink = "http://www.autogidas.lt/" + car.getUrl();
                 Document fullCarInfoDoc = SiteGetter.getSite(carFullLink);
@@ -60,9 +60,20 @@ public class CarFinder {
                 ArrayList<String> photos = new ArrayList<String>();
                 Elements photosEl = fullCarInfoDoc.getElementsByAttributeValue("class", "photo");
                 for (Element element : photosEl) {
-                    photos.add(element.absUrl("data-src"));
+                    photos.add(element.getElementsByTag("img").first().toString());
                 }
                 car.setLinksOfPhotos(photos);
+
+
+                StringBuilder sb = new StringBuilder(car.getDescription());
+                for (String photo : photos) {
+                    sb.append(photo);
+                }
+
+                String description = sb.toString();
+                car.setDescription(description);
+
+
                 cars.add(car);
             }
         } catch (Exception e) {

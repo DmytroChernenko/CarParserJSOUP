@@ -44,12 +44,13 @@ public class MainParser {
         List<Car> allCars = new ArrayList<Car>();
 
 
-        for (int i = 1; i <2; i++) {
-            url = "http://ru.autogidas.lt/automobiliai/" + i  + "-psl/?f_1=Audi&f_215=1000&f_50=kaina_asc";
+        for (int i = 1; i <=numberOfPages; i++) {
+            url = "http://ru.autogidas.lt/automobiliai/" + i  + "-psl/?f_1=Volvo&f_215=1000&f_50=kaina_asc";
             site = SiteGetter.getSite(url);
             CarFinder carFinder = new CarFinder(site);
             List<Car> cars = carFinder.getCars();
             allCars.addAll(cars);
+            System.out.println(i + " pages done. " + (numberOfPages-i) + " pages left");
         }
 
 
@@ -61,7 +62,7 @@ public class MainParser {
             for (Car car : allCars) {
                 DownloadImages.getImage(car);
                 saveToDatabase(car);
-                System.out.println(++i);
+                System.out.println("ready: " + (++i));
             }
         }catch (Exception e) {
             System.out.println(e.getMessage());

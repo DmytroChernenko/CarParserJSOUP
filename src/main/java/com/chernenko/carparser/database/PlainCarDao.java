@@ -65,8 +65,6 @@ public class PlainCarDao {
                     "location = '', " +
                     "date_added = NOW()";
 
-            System.out.println(sqlToProduct);
-
             String sqlGetProductId = "select product_id from oc_product order by 1 DESC limit 0,1";
 
 
@@ -96,16 +94,21 @@ public class PlainCarDao {
             statement.execute();
 
             String sqlToAlias = "INSERT INTO oc_url_alias SET query = " +
-                    "'product_id = " + product_id + "', " +
+                    "'product_id=" + product_id + "', " +
                     "keyword = '" + car.getUrl() + "'";
 
-            statement = connection.prepareStatement(sqlToAlias);
-            statement.execute();
+            //statement = connection.prepareStatement(sqlToAlias);
+            //statement.execute();
 
             String sqlToGroup = "INSERT INTO oc_product_to_category SET product_id = '" +
-                    product_id + "', category_id = '74', main_category = 1";
+                    product_id + "', category_id = '77', main_category = 1";
 
             statement = connection.prepareStatement(sqlToGroup);
+            statement.execute();
+
+            String sqlToProductToStore = "INSERT INTO oc_product_to_store SET product_id = '" + product_id + "', store_id = '0'";
+
+            statement = connection.prepareStatement(sqlToProductToStore);
             statement.execute();
 
         } catch (SQLException ex) {
