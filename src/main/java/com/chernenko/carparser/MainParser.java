@@ -1,7 +1,7 @@
 package com.chernenko.carparser;
 
 
-import com.chernenko.carparser.dao.CarFinder;
+import com.chernenko.carparser.dao.AutogidasCarFinder;
 import com.chernenko.carparser.dao.SiteGetter;
 import com.chernenko.carparser.database.PlainCarDao;
 import com.chernenko.carparser.entity.Car;
@@ -47,8 +47,8 @@ public class MainParser {
         for (int i = 1; i <=numberOfPages; i++) {
             url = "http://ru.autogidas.lt/automobiliai/" + i  + "-psl/?f_1=Volvo&f_215=1000&f_50=kaina_asc";
             site = SiteGetter.getSite(url);
-            CarFinder carFinder = new CarFinder(site);
-            List<Car> cars = carFinder.getCars();
+            AutogidasCarFinder carFinder = new AutogidasCarFinder();
+            List<Car> cars = carFinder.find(site);
             allCars.addAll(cars);
             System.out.println(i + " pages done. " + (numberOfPages-i) + " pages left");
         }

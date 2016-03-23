@@ -15,6 +15,10 @@ public class Car {
     private String pathToPhotoDir;
     private List<String> linksOfPhotos;
 
+    private String mainPhoto;
+
+    private String price;
+
     public String getMainPhoto() {
         return mainPhoto;
     }
@@ -22,10 +26,6 @@ public class Car {
     public void setMainPhoto(String mainPhoto) {
         this.mainPhoto = mainPhoto;
     }
-
-    private String mainPhoto;
-
-    private String price;
 
     public String getPathToPhotoDir() {
         return pathToPhotoDir;
