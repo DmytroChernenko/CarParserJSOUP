@@ -17,13 +17,21 @@ import java.util.List;
 public class MainMobileDe {
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Please input your url");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String url = reader.readLine();
+        String url = getUrl();
 
+        List<Car> cars = getCars(url);
+
+    }
+
+    private static List<Car> getCars(String url) {
         Document site = SiteGetter.getSite(url);
         CarFinder carFinder = new MobileDeCarFinder();
-        List<Car> cars = carFinder.find(site);
+        return carFinder.find(site);
+    }
 
+    private static String getUrl() throws IOException {
+        System.out.println("Please input your url");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        return reader.readLine();
     }
 }
